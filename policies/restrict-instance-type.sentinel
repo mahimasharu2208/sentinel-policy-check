@@ -1,0 +1,10 @@
+import "tfplan/v2" as tfplan
+
+# Deny if any aws_instance has instance_type not equal to "t2.micro"
+main = rule {
+    all tfplan.resources.aws_instance as _, instances {
+        all instances as _, r {
+            r.applied.instance_type is "t2.micro"
+        }
+    }
+}
